@@ -7,12 +7,12 @@ import numpy as np
 wins = [46.5,37.5,25.5,44.5,20.5,57.5,35.5] 
 ou = ["over","under","under","over","under","over","under"]
 
-data_dict = {"ou_wins": wins, "over_under": ou, "current_wins": np.nan, "current_losses": np.nan, "projected_wins": np.nan, "looking_good?": ""}
+data_dict = {"ou_wins": wins, "over_under": ou, "current_wins": np.nan, "current_losses": np.nan, "projected_wins": np.nan, "rag_status": ""}
 
 table = pd.DataFrame(
     data_dict,
     index = ['Utah Jazz', 'Milwaukee Bucks', 'Los Angeles Lakers', 'Atlanta Hawks', 'Brooklyn Nets', 'San Antonio Spurs','Miami Heat'],
-    columns = ['ou_wins','over_under', 'current_wins', 'current_losses', 'projected_wins', 'looking_good?']
+    columns = ['ou_wins','over_under', 'current_wins', 'current_losses', 'projected_wins', 'rag_status?']
     )
 
 
@@ -42,13 +42,13 @@ for irow in table.iterrows():
     
     multiplier = np.where(irow[1][1]=='over', 1, -1)
     
-    if all((projected_wins - irow[1][0]) * multiplier > 3):
-        status = "Good"
-    elif all((projected_wins - irow[1][0]) * multiplier > -3):
-        status = "Medium"
+    if all((projected_wins - irow[1][0]) * multiplier > 2):
+        status = "Green"
+    elif all((projected_wins - irow[1][0]) * multiplier > -4):
+        status = "Amber"
     else:
-        status = "Bad"
+        status = "Red"
             
-    table.set_value(team, 'looking_good?', status)
+    table.set_value(team, 'rag_status', status)
 
 table.to_excel('bet_tracking.xlsx')
