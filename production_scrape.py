@@ -2,6 +2,7 @@ import bs4
 import requests
 import pandas as pd
 import numpy as np
+import smtplib
 
 # Initialise the bet parameters
 wins = [46.5,37.5,25.5,44.5,20.5,57.5,35.5] 
@@ -51,4 +52,4 @@ for irow in table.iterrows():
             
     table.set_value(team, 'rag_status', status)
 
-table.to_excel('bet_tracking.xlsx')
+# Email Update
