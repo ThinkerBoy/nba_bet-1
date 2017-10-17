@@ -3,6 +3,8 @@ import requests
 import pandas as pd
 import numpy as np
 import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 # Initialise the bet parameters
 wins = [40.5,32.5,38.5,54.5] 
